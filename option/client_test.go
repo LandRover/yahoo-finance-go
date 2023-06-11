@@ -3,8 +3,8 @@ package option
 import (
 	"testing"
 
-	finance "github.com/piquette/finance-go"
-	tests "github.com/piquette/finance-go/testing"
+	finance "github.com/LandRover/yahoo-finance-go"
+	tests "github.com/LandRover/yahoo-finance-go/testing"
 	"github.com/stretchr/testify/assert"
 )
 
