@@ -2,6 +2,7 @@ package mutualfund
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	finance "github.com/LandRover/yahoo-finance-go"
@@ -43,6 +44,10 @@ func (i *Iter) MutualFund() *finance.MutualFund {
 // Get returns an MutualFund quote that matches the parameters specified.
 func Get(symbol string) (*finance.MutualFund, error) {
 	i := List([]string{symbol})
+
+	if i.Count() == 0 {
+		return nil, fmt.Errorf("Can't find quote for symbol: %s", symbol)
+	}
 
 	if !i.Next() {
 		return nil, i.Err()
