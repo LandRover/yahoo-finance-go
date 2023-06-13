@@ -54,5 +54,5 @@ func TestGetBadETF(t *testing.T) {
 
 	q, err := Get("TEST")
 	assert.Nil(t, q)
-	assert.Nil(t, err)
+	assert.NotNil(t, err)
 }

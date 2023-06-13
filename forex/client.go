@@ -2,6 +2,7 @@ package forex
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	finance "github.com/LandRover/yahoo-finance-go"
@@ -44,6 +45,10 @@ func (i *Iter) ForexPair() *finance.ForexPair {
 func Get(symbol string) (*finance.ForexPair, error) {
 	i := List([]string{symbol})
 
+	if i.Count() == 0 {
+		return nil, fmt.Errorf("Can't find quote for symbol: %s", symbol)
+	}
+
 	if !i.Next() {
 		return nil, i.Err()
 	}
@@ -83,7 +88,7 @@ func (c Client) ListP(params *Params) *Iter {
 	return &Iter{iter.New(body, func(b *form.Values) (interface{}, []interface{}, error) {
 
 		resp := response{}
-		err := c.B.Call("/v6/finance/quote", body, params.Context, &resp)
+		err := c.B.Call("/v7/finance/quote", body, params.Context, &resp)
 		if err != nil {
 			err = finance.CreateRemoteError(err)
 		}
